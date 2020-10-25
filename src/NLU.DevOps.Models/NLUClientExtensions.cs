@@ -67,5 +67,16 @@ namespace NLU.DevOps.Models
         {
             return instance.TestSpeechAsync(speechFile, query, CancellationToken.None);
         }
+
+        /// <summary>
+        /// Batch testing for the NLU model.
+        /// </summary>
+        /// <returns>Task to await the resulting fscores.</returns>
+        /// <param name="instance">NLU evaluation client instance.</param>
+        /// <param name="testData">test data.</param>
+        public static Task<BatchTestingResult> BatchTestAsync(this INLUEvaluationClient instance, IEnumerable<LabeledUtterance> testData)
+        {
+            return instance.BatchTestAsync(testData, CancellationToken.None);
+        }
     }
 }

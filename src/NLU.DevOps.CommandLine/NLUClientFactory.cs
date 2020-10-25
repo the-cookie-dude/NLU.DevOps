@@ -28,5 +28,15 @@ namespace NLU.DevOps.CommandLine
 
             return serviceFactory.CreateTestInstance(configuration, settingsPath);
         }
+
+        public static INLUEvaluationClient CreateEvaluationInstance(BaseOptions options, IConfiguration configuration, string settingsPath = null)
+        {
+            if (!ServiceResolver.TryResolve<INLUClientFactory>(options, out var serviceFactory))
+            {
+                throw new InvalidOperationException($"Invalid NLU provider type '{options.Service}'.");
+            }
+
+            return serviceFactory.CreateTestInstance(configuration, settingsPath);
+        }
     }
 }

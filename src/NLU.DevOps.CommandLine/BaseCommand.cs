@@ -19,6 +19,7 @@ namespace NLU.DevOps.CommandLine
             this.LazyConfiguration = new Lazy<IConfiguration>(this.CreateConfiguration);
             this.LazyNLUTrainClient = new Lazy<INLUTrainClient>(this.CreateNLUTrainClient);
             this.LazyNLUTestClient = new Lazy<INLUTestClient>(this.CreateNLUTestClient);
+            this.LazyNLUEvaluationClient = new Lazy<INLUEvaluationClient>(this.CreateNLUEvaluationClient);
             this.LazyLogger = new Lazy<ILogger>(this.CreateLogger);
         }
 
@@ -30,6 +31,8 @@ namespace NLU.DevOps.CommandLine
 
         protected INLUTestClient NLUTestClient => this.LazyNLUTestClient.Value;
 
+        protected INLUEvaluationClient NLUEvaluationClient => this.LazyNLUEvaluationClient.Value;
+
         protected ILogger Logger => this.LazyLogger.Value;
 
         private Lazy<IConfiguration> LazyConfiguration { get; }
@@ -37,6 +40,8 @@ namespace NLU.DevOps.CommandLine
         private Lazy<INLUTrainClient> LazyNLUTrainClient { get; }
 
         private Lazy<INLUTestClient> LazyNLUTestClient { get; }
+
+        private Lazy<INLUEvaluationClient> LazyNLUEvaluationClient { get; }
 
         private Lazy<ILogger> LazyLogger { get; }
 
@@ -56,6 +61,11 @@ namespace NLU.DevOps.CommandLine
         protected virtual INLUTestClient CreateNLUTestClient()
         {
             return NLUClientFactory.CreateTestInstance(this.Options, this.Configuration);
+        }
+
+        protected virtual INLUEvaluationClient CreateNLUEvaluationClient()
+        {
+            return NLUClientFactory.CreateEvaluationInstance(this.Options, this.Configuration);
         }
 
         protected void Dispose(bool disposing)

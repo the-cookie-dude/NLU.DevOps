@@ -25,5 +25,13 @@ namespace NLU.DevOps.Models
         /// <param name="configuration">Configuration.</param>
         /// <param name="settingsPath">Path to NLU provider settings.</param>
         INLUTestClient CreateTestInstance(IConfiguration configuration, string settingsPath);
+
+        /// <summary>
+        /// Create the NLU evaluation client instance.
+        /// </summary>
+        /// <returns>The instance.</returns>
+        /// <param name="configuration">Configuration.</param>
+        /// <param name="settingsPath">Path to NLU provider settings.</param>
+        INLUEvaluationClient CreateEvaluationInstance(IConfiguration configuration, string settingsPath);
     }
 }
